@@ -1,0 +1,23 @@
+# --- Unity Garbage ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+.utmp/
+
+# --- IDE & OS ---
+.vs/
+.idea/
+*.sln
+*.csproj
+*.unityproj
+.DS_Store
+Thumbs.db
+
+# --- Package Specifics ---
+# If you include a "Samples" folder, Unity sometimes generates 
+# local metadata for them that you don't want to track.
+*.userdata

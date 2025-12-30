@@ -1,0 +1,11 @@
+{
+    "name": "Joshuak98.Worldui.Tests",
+    "references": [
+        "Joshuak98.Worldui"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

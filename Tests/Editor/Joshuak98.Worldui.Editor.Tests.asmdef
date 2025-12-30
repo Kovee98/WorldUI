@@ -1,0 +1,14 @@
+{
+    "name": "Joshuak98.Worldui.Editor.Tests",
+    "references": [
+        "Joshuak98.Worldui.Editor",
+        "Joshuak98.Worldui"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
