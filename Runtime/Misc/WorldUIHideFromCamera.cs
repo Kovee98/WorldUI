@@ -45,7 +45,7 @@ namespace WorldUI {
             // Determine the face normal based on the selected direction
             float dot = Vector3.Dot(transform.forward, dirToCamera);
 
-            switch (direction) {
+            switch (hideWhenCameraIs) {
                 case FaceDirection.InFront:
                     dot = Vector3.Dot(-transform.forward, dirToCamera);
                     break;
