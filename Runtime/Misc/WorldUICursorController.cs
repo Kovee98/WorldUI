@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
+// using UnityEngine.EventSystems;
 
 namespace WorldUI {
-    public class WorldUICursorController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
+    // public class WorldUICursorController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
+    public class WorldUICursorController : MonoBehaviour {
         [Header("General")]
         [SerializeField] CursorMode cursorMode = CursorMode.Auto;
         [SerializeField] bool changeCursor = true;
@@ -84,10 +85,10 @@ namespace WorldUI {
         }
 
         // pointer events (for UI) 
-        public void OnPointerEnter (PointerEventData eventData) { OnMouseEnter(); }
-        public void OnPointerExit (PointerEventData eventData) { OnMouseExit(); }
-        public void OnPointerDown (PointerEventData eventData) { OnMouseDown(); }
-        public void OnPointerUp (PointerEventData eventData) { OnMouseUp(); }
+        // public void OnPointerEnter (PointerEventData eventData) { OnMouseEnter(); }
+        // public void OnPointerExit (PointerEventData eventData) { OnMouseExit(); }
+        // public void OnPointerDown (PointerEventData eventData) { OnMouseDown(); }
+        // public void OnPointerUp (PointerEventData eventData) { OnMouseUp(); }
 
         public void SetIsEnabled (bool isEnabled) {
             this.isEnabled = isEnabled;
