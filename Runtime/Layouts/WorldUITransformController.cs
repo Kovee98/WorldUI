@@ -2,13 +2,16 @@ using UnityEngine;
 
 namespace WorldUI {
     public class WorldUITransformController : WorldUILayout {
+        /*
+            Position
+        */
         [Header("Position")]
         [SerializeField] private bool controlPosition;
         [ShowIf("controlPosition")]
         [SerializeField] private WorldUITransformControllerPositionMode positionMode = WorldUITransformControllerPositionMode.Local;
-        [ShowIf("showScreenAnchor")]
+        [ShowIf("_showScreenAnchor")]
         [SerializeField] private WorldUITransformControllerScreenAnchors screenAnchor = WorldUITransformControllerScreenAnchors.MiddleCenter;
-        bool showScreenAnchor () {
+        bool _showScreenAnchor () {
             return controlPosition && positionMode == WorldUITransformControllerPositionMode.Screen;
         }
         [ShowIf("controlPosition")]
@@ -18,23 +21,34 @@ namespace WorldUI {
         [Tooltip("The anchor point on the Y-axis to use for child positioning.")]
         [SerializeField] private WorldUIAlignment yAlignment = WorldUIAlignment.Center;
 
-        [ShowIf("showPositionTarget")]
+        [ShowIf("_showPositionTarget")]
         [SerializeField] private Transform positionTarget;
-        bool showPositionTarget () {
+        bool _showPositionTarget () {
             return controlPosition && positionMode != WorldUITransformControllerPositionMode.Screen;
+        }
+        [ShowIf("_showPositionTarget")]
+        [SerializeField] private bool findPositionTarget;
+        [ShowIf("_showPositionTargetTag")]
+        [SerializeField] private string positionTargetTag;
+        bool _showPositionTargetTag () {
+            return _showPositionTarget() && findPositionTarget;
         }
 
         [ShowIf("controlPosition")]
         [SerializeField] private Vector3 positionOffset = Vector3.zero;
 
+
+        /*
+            Rotation
+        */
         [Header("Rotation")]
         [SerializeField] private bool controlRotation;
         [ShowIf("controlRotation")]
         [SerializeField] private WorldUITransformControllerRotationMode rotationMode = WorldUITransformControllerRotationMode.Match;
 
-        [ShowIf("showRotationTarget")]
+        [ShowIf("_showRotationTarget")]
         [SerializeField] private Transform rotationTarget;
-        bool showRotationTarget () {
+        bool _showRotationTarget () {
             return controlRotation &&
                 rotationMode != WorldUITransformControllerRotationMode.LookAtScreen &&
                 rotationMode != WorldUITransformControllerRotationMode.LookAwayFromScreen;
@@ -43,6 +57,10 @@ namespace WorldUI {
         [ShowIf("controlRotation")]
         [SerializeField] private Vector3 rotationOffset = Vector3.zero;
 
+
+        /*
+            Scale
+        */
         [Header("Scale")]
         [SerializeField] private bool controlScale;
         [ShowIf("controlScale")]
@@ -83,7 +101,7 @@ namespace WorldUI {
             if (!updateContinuously && continuousUpdate) return;
 
             // rotate
-                Quaternion baseRot = transform.rotation;
+            Quaternion baseRot = transform.rotation;
             if (controlRotation) {
                 if (positionTarget != null) baseRot = positionTarget.rotation;
 
@@ -179,6 +197,7 @@ namespace WorldUI {
             // position
             Vector3 basePos = Vector3.zero;
             if (controlPosition) {
+                if (findPositionTarget) positionTarget = GameObject.FindWithTag(positionTargetTag)?.transform;
                 if (positionTarget != null) basePos = positionTarget.position;
                 Vector3 newPos = basePos;
 
