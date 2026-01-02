@@ -30,8 +30,8 @@ namespace WorldUI {
         [SerializeField] UnityEvent mouseUpEvent;
 
         void OnMouseEnter () {
-            if (!isEnabled) return;
             if (!skipIsHoveringUpdate) isHovering = true;
+            if (!isEnabled) return;
 
             if (changeCursor) {
                 Cursor.SetCursor(mouseEnterCursor, mouseEnterCursorHotspot, cursorMode);
@@ -40,8 +40,8 @@ namespace WorldUI {
         }
 
         void OnMouseExit () {
-            if (!isEnabled)  return;
             if (!skipIsHoveringUpdate) isHovering = false;
+            if (!isEnabled) return;
 
             if (changeCursor) {
                 if (isClicking) {
