@@ -15,6 +15,7 @@ namespace WorldUI {
         [SerializeField] Vector2 mouseExitCursorHotspot;
         public bool isHovering = false;
         public bool isClicking = false;
+        bool skipIsHoveringUpdate = false;
 
         [Header("Clicking")]
         [SerializeField] Texture2D mouseDownCursor;
@@ -29,8 +30,8 @@ namespace WorldUI {
         [SerializeField] UnityEvent mouseUpEvent;
 
         void OnMouseEnter () {
-            isHovering = true;
             if (!isEnabled) return;
+            if (!skipIsHoveringUpdate) isHovering = true;
 
             if (changeCursor) {
                 Cursor.SetCursor(mouseEnterCursor, mouseEnterCursorHotspot, cursorMode);
@@ -39,8 +40,8 @@ namespace WorldUI {
         }
 
         void OnMouseExit () {
-            isHovering = false;
-            if (!isEnabled) return;
+            if (!isEnabled)  return;
+            if (!skipIsHoveringUpdate) isHovering = false;
 
             if (changeCursor) {
                 if (isClicking) {
@@ -81,12 +82,19 @@ namespace WorldUI {
             if (mouseUpEvent != null) mouseUpEvent.Invoke();
         }
 
+        // isHovering = true
+        // isEnabled = true
+
         public void SetIsEnabled (bool isEnabled) {
+            bool wasEnabled = this.isEnabled;
+
+            skipIsHoveringUpdate = true;
             // if disabling while hovering, trigger exit
-            if (this.isEnabled && !isEnabled && isHovering) OnMouseExit();
+            if (wasEnabled && !isEnabled && isHovering) OnMouseExit();
 
             // if enabling while hovering, trigger enter
-            if (!this.isEnabled && isEnabled && isHovering) OnMouseEnter();
+            if (!wasEnabled && isEnabled && isHovering) OnMouseEnter();
+            skipIsHoveringUpdate = false;
 
             this.isEnabled = isEnabled;
         }
