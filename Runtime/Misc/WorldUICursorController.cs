@@ -91,6 +91,12 @@ namespace WorldUI {
         // public void OnPointerUp (PointerEventData eventData) { OnMouseUp(); }
 
         public void SetIsEnabled (bool isEnabled) {
+            // if disabling while hovering, trigger exit
+            if (this.isEnabled && !isEnabled && isHovering) OnMouseExit();
+
+            // if enabling while hovering, trigger enter
+            if (!this.isEnabled && isEnabled && isHovering) OnMouseEnter();
+
             this.isEnabled = isEnabled;
         }
     }
