@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
-// using UnityEngine.EventSystems;
 
 namespace WorldUI {
-    // public class WorldUICursorController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler {
     public class WorldUICursorController : MonoBehaviour {
         [Header("General")]
         [SerializeField] CursorMode cursorMode = CursorMode.Auto;
@@ -31,9 +29,9 @@ namespace WorldUI {
         [SerializeField] UnityEvent mouseUpEvent;
 
         void OnMouseEnter () {
+            isHovering = true;
             if (!isEnabled) return;
 
-            isHovering = true;
             if (changeCursor) {
                 Cursor.SetCursor(mouseEnterCursor, mouseEnterCursorHotspot, cursorMode);
             }
@@ -41,9 +39,8 @@ namespace WorldUI {
         }
 
         void OnMouseExit () {
-            if (!isEnabled) return;
-
             isHovering = false;
+            if (!isEnabled) return;
 
             if (changeCursor) {
                 if (isClicking) {
@@ -60,7 +57,7 @@ namespace WorldUI {
             if (!isEnabled) return;
 
             isClicking = true;
-            
+
             if (changeCursor) {
                 Cursor.SetCursor(mouseDownCursor, mouseDownCursorHotspot, cursorMode);
             }
@@ -83,12 +80,6 @@ namespace WorldUI {
 
             if (mouseUpEvent != null) mouseUpEvent.Invoke();
         }
-
-        // pointer events (for UI) 
-        // public void OnPointerEnter (PointerEventData eventData) { OnMouseEnter(); }
-        // public void OnPointerExit (PointerEventData eventData) { OnMouseExit(); }
-        // public void OnPointerDown (PointerEventData eventData) { OnMouseDown(); }
-        // public void OnPointerUp (PointerEventData eventData) { OnMouseUp(); }
 
         public void SetIsEnabled (bool isEnabled) {
             // if disabling while hovering, trigger exit
