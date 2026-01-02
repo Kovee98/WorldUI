@@ -82,21 +82,20 @@ namespace WorldUI {
             if (mouseUpEvent != null) mouseUpEvent.Invoke();
         }
 
-        // isHovering = true
-        // isEnabled = true
-
         public void SetIsEnabled (bool isEnabled) {
             bool wasEnabled = this.isEnabled;
 
             skipIsHoveringUpdate = true;
+
             // if disabling while hovering, trigger exit
             if (wasEnabled && !isEnabled && isHovering) OnMouseExit();
 
+            this.isEnabled = isEnabled;
+
             // if enabling while hovering, trigger enter
             if (!wasEnabled && isEnabled && isHovering) OnMouseEnter();
-            skipIsHoveringUpdate = false;
 
-            this.isEnabled = isEnabled;
+            skipIsHoveringUpdate = false;
         }
     }
 }
